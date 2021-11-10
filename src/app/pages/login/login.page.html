@@ -1,0 +1,84 @@
+<ion-content color="tertiary">
+
+  <ion-slide>
+
+    <form (ngSubmit)="login( fLogin )"  #fLogin="ngForm">
+      <ion-grid fixed>
+
+        <ion-row>
+          <ion-col>
+            <img src="/assets/avatars/avatar-default.png">
+          </ion-col>
+        </ion-row>
+
+        <ion-row >
+          <ion-col >
+
+              <ion-list >
+
+                <ion-item color="warning">
+                  <ion-label>Email: </ion-label>
+                  <ion-input
+
+                    placeholder="Email"
+                    name="email"
+                    type="email"
+                    [(ngModel)]="loginUser.email"
+                    required>
+
+                  </ion-input>
+                </ion-item>
+
+                <ion-item color="warning">
+                  <ion-label>Password: </ion-label>
+                  <ion-input
+
+                    placeholder="Password"
+                    name="password"
+                    type="password"
+                    [(ngModel)]="loginUser.password"
+                    required>
+
+                  </ion-input>
+                </ion-item>
+
+              </ion-list>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit"
+                        color="dark"
+                        shape="round">
+              Login
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+      <ion-chip [disabled]="false">
+        <ion-label color="light">Olvido su contraseña? <a rel="noopener noreferrer" [routerLink]="['/restablecer']">Recuperar Aquí</a></ion-label>
+      </ion-chip>
+
+      <!--
+      <ion-button
+        [routerLink]="['/restablecer']"
+        expand="block"
+        color="warning"
+        class="ion-text-capitalize">
+        Recuperar Aquí
+      </ion-button>
+      -->
+
+    </form>
+
+
+
+  </ion-slide>
+
+</ion-content>
+
+
+

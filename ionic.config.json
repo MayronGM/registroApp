@@ -1,0 +1,7 @@
+{
+  "name": "registroAsistencia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

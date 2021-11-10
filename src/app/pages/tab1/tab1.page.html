@@ -1,0 +1,43 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>
+      Bienvenido {{bienvenido}}
+    </ion-title>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-item>
+
+
+    <ion-icon name="qr-code-outline" slot="end"></ion-icon>
+    <ion-avatar slot="start">
+      <img src="../../../assets/avatars/avatar-default.png" alt="">
+    </ion-avatar>
+
+    <ion-label>{{token}}</ion-label>
+
+  </ion-item>
+
+
+
+  <ion-slides [options]="swiperOpts">
+    <ion-slide>
+      <ion-button (click)="scan()" fill="outline" size="large" shape="round" color="warning">
+        REGISTRAR ASISTENCIA
+      </ion-button>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+
+

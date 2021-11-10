@@ -1,0 +1,22 @@
+
+
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>{{ name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{ email }}</ion-card-subtitle>
+      <ion-card-title>{{ nombre }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="ion-text-center">
+      <img src="/assets/avatars/avatar-default.png">
+      <p>Sede: {{ sede }}</p>
+    </ion-card-content>
+    <ion-label>{{fechaHora | date: 'medium'}}</ion-label>
+  </ion-card>
+</ion-content>

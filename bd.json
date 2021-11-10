@@ -1,0 +1,84 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "nombre": "Jonathan Alvarez",
+      "email": "jo.alvarez@duoc.cl",
+      "password": "1234",
+      "horario": "Diurno",
+      "sede": "Viña del mar",
+      "telefono": "+569437749277",
+      "seccion": "D002"
+    },
+    {
+      "id": 2,
+      "nombre": "Mayron Guevara",
+      "email": "may.guevara@duoc.cl",
+      "password": "1234",
+      "horario": "Vespertino",
+      "sede": "Viña del mar",
+      "telefono": "+56938221916",
+      "seccion": "V002"
+    },
+    {
+      "id": 3,
+      "nombre": "Andrea Casidi ",
+      "email": "an.casidi@duoc.cl",
+      "telefono": "+56982378455",
+      "password": "123456",
+      "horario": "Diurno",
+      "sede": "Viña del mar",
+      "seccion": "D002"
+    },
+    {
+      "id": 4,
+      "nombre": "Valentina Correa",
+      "email": "val.correa@duoc.cl",
+      "telefono": "+56974682286",
+      "password": "123456",
+      "horario": "Vespertino",
+      "sede": "Viña del mar",
+      "seccion": "V002"
+    },
+    {
+      "id": 5,
+      "nombre": "Camila Andrade",
+      "email": "ca.andrade@duoc.cl",
+      "telefono": "+56993372818",
+      "password": "123456",
+      "horario": "Diurno",
+      "sede": "Viña del mar",
+      "seccion": "D002"
+    },
+    {
+      "id": 6,
+      "nombre": "Cristian Gutiérrez",
+      "email": "cri.gutierrezt@duoc.cl",
+      "telefono": "+56977766572",
+      "password": "123456",
+      "horario": "Vespertino",
+      "sede": "Viña del mar",
+      "seccion": "V002"
+    },
+    {
+      "id": 7,
+      "nombre": "Romina Jimenez",
+      "email": "ro.jimeneza@duoc.cl",
+      "telefono": "+56963872218",
+      "password": "123456",
+      "horario": "Vespertino",
+      "sede": "Viña del mar",
+      "seccion": "V002"
+    },
+    {
+      "id": 8,
+      "nombre": "Richard Riquelme",
+      "email": "ric.riquelme@duoc.cl",
+      "telefono": "+569755536219",
+      "password": "123456",
+      "horario": "Vespertino",
+      "sede": "Viña del mar",
+      "seccion": "V002"
+    }
+  ]
+}
