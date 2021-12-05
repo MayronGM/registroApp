@@ -40,8 +40,9 @@ export class Tab1Page {
 
       }).catch(err => {
           console.log(err);
-           this.baseDatoStorage.guardarRegistro( 'QRCode', 'user{id: 2 , nombre: "Mayron Guevara",email: "may.guevara@duoc.cl",password: "1234",horario: "Diurno",sede: "Viña del Mar",telefono: "+569 5478 3698",seccion: "D007"}');
-
+           //this.baseDatoStorage.guardarRegistro( 'QRCode','docente{"id": 890, "seccion": "V005", "asignatura": "Programacion Web", "docente": "David Larrondo", "correo": "dav.larrondo@profesor.duoc.cl", "avatar": "../assets/avatars/docent-2.png"} ');
+           this.baseDatoStorage.guardarRegistro( 'QRCode','docente{"id": 1, "seccion": "V002", "asignatura": "Aplicación Móvil", "docente": "Nancy Bernal", "correo": "nan.bernal@profesor.duoc.cl", "avatar": "../assets/avatars/docent-1.png"} ');
+          // this.baseDatoStorage.guardarRegistro( 'QRCode', 'user{id: 2 , nombre: "Mayron Guevara",email: "may.guevara@duoc.cl",password: "1234",horario: "Diurno",sede: "Viña del Mar",telefono: "+569 5478 3698",seccion: "D007"}');
       });
 
   }

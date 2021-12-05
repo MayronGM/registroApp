@@ -28,9 +28,9 @@ export class Registro {
               this.icon = 'globe';
           break;
 
-          case 'user':
-              this.type = 'user';
-              this.icon = 'person-outline';
+          case 'doce':
+              this.type = 'docente';
+              this.icon = 'school-outline';
               this.asistencias = '';
           break;
 

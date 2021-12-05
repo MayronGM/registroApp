@@ -14,7 +14,7 @@ export interface Usuarios{
   horario: string;
   sede: string;
   seccion: string;
-
+  avatar: string;
 }
 
 export interface Asitencias  {
@@ -29,3 +29,12 @@ export interface Asitencias  {
 }
 
 
+export interface Docentes{
+
+  id: number;  
+  seccion: string;
+  asignatura: string;
+  docente: string;
+  correo: string;
+  avatar: string;
+}

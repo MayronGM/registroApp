@@ -21,9 +21,19 @@ export class MenuPage implements OnInit {
       icono: 'home'
     },
     {
-      titulo: 'Registros',
+      titulo: 'Asistencia',
       url: '/menu/tabs/tab2',
       icono: 'book'
+    },
+    {
+      titulo: 'Docente',
+      url: '/menu/tabs/tab3',
+      icono: 'school'
+    },
+    {
+      titulo: 'Alumnos',
+      url: '/menu/tabs/tab4',
+      icono: 'people-circle'
     }
   ]
 

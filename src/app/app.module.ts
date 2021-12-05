@@ -12,6 +12,9 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
+import { File } from '@ionic-native/file/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -19,6 +22,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   providers: [
     BarcodeScanner,
     InAppBrowser,
+    File,
+    EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

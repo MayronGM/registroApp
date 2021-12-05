@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { UsuarioService } from './usuario.service';
 import { Storage } from '@ionic/storage';
-import { Asitencias, Usuarios } from '../interfaces/interfaces';
+import { Asitencias, Usuarios, Docentes } from '../interfaces/interfaces';
 import { Registro } from '../models/registro.model';
 import { NavController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AlertService } from './alert.service';
+
+import { File } from '@ionic-native/file/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 
 @Injectable({
@@ -14,6 +17,7 @@ import { AlertService } from './alert.service';
 export class BaseDatoStorageService {
 
   usuario: Usuarios[] = [];
+  docente: Docentes[] = [];
   asistencias: Asitencias[] = [];
   bienvenido: string;
 
@@ -27,18 +31,34 @@ export class BaseDatoStorageService {
     private storage: Storage,
     private navController: NavController,
     private iab: InAppBrowser,
-    private alertService: AlertService) {
+    private alertService: AlertService, 
+    private file: File,
+    private emailComposer: EmailComposer,
 
-    this.cargarUsuarioStorage();
-    this.cargarStorage();
+    ) {
+    this.init();
+    
 
   }
-
-  async cargarUsuarioStorage(){
+  async init(){
     const storage = await this.storage.create();
     this._storage = storage;
     this.guardarUsuariosStorage();
+    this.guardarDocentesStorage();
+    this.cargarStorage();
+    
+
+  }
+
+
+  async cargarUsuarioStorage(){
+    
+    this.guardarUsuariosStorage();
     this.usuario = (await this.storage.get("users")) || [];
+
+  }
+  async cargarDocentesStorage(){
+    this.docente = (await this.storage.get("docentes")) || [];
 
   }
 
@@ -71,6 +91,14 @@ export class BaseDatoStorageService {
 
     });
   }
+  guardarDocentesStorage(){
+    this.usuarioService.getDocente().subscribe( async respuesta => {
+      this.docente = respuesta;
+      await this._storage.set('docentes', this.docente)
+
+
+    });
+  }
 
 
 
@@ -83,13 +111,50 @@ export class BaseDatoStorageService {
   }
 
   async guardarRegistro( format: string, text: string ){
-
+    var existe: boolean = false;
     await this.cargarStorage();
     const nuevoRegistro = new Registro( format, text );
-    this.guardados.unshift( nuevoRegistro );
-    this._storage.set('registros', this.guardados);
+    
+    //console.log(nuevoRegistro.text)
+    var idDocente: number = 0;
+    var id: string = "";
+    var idScan = nuevoRegistro.text.split(",")[0];    
+    this.docente.forEach(element => {
+        idDocente = element.id;      
+    });    
+    id = JSON.stringify(idDocente);      
+    if (idScan.match(id) == null) {
+      console.log("no existe docente");
+    } else {
+      console.log("docente existe");
+      existe = true;
+    }
+    
+    if (existe) {
+      this.guardados.unshift( nuevoRegistro );
+      this._storage.set('registros', this.guardados);
+      this.alertService.presentToast("registro guardado exitosamente");
+
+      //desde aqui enviar datos del usuario escaneado
+      //usar id que trae el valor del api .
+
+
+
+
+
+    } else {
+      this.alertService.alertaInformacion("docente escaneado no existe");
+      
+    }
+
+
+
+
+
+
+
     this.abrirRegistro( nuevoRegistro );
-    this.registroAsistencia();
+    //this.registroAsistencia();
   }
 
 
@@ -105,10 +170,55 @@ export class BaseDatoStorageService {
         this.navController.navigateForward( `/menu/tabs/${registro.created.getMilliseconds()}`);
       break;
 
+      case 'doce':
+        this.navController.navigateForward( `/menu/tabs/${registro.created.getMilliseconds()}`);
+      break;
+
     }
   }
 
+  enviarCorreo(){
+    const arrayRegistro = [];
+    this.guardados.forEach(registro => {
+      const reg = `${registro.type},${registro.format},${registro.created},${registro.text.replace(',',' ')}\n`;
+      arrayRegistro.push(reg);
+    });
+    
+    this.generarArchivo(arrayRegistro.join(''));    
+    
+  }
 
+  generarArchivo(archivo:any){
+    this.file.checkFile( this.file.dataDirectory, 'listaCorreo.csv').then( existe => {
+      console.log('Directorio Existe', existe)
+      return this.emailSend( archivo );
+    }).catch(err =>{
+      console.log('Directorio No Existe');
+      return this.file.createFile( this.file.dataDirectory, 'listaCorreo.csv', false )
+        .then( creado => this.emailSend( archivo ))
+        .catch(err2 => console.log( 'No se pudo crear el archivo', err2 ));
+    });   
+  }
+
+  async emailSend(archivo: string){
+    await this.file.writeExistingFile( this.file.dataDirectory, 'listaCorreo.csv', archivo );
+    console.log('Archivo Creado');
+    console.log( this.file.dataDirectory + 'listaCorreo.csv' );
+    const lista = `${ this.file.dataDirectory }listaCorreo.csv`;
+    const email = {
+      to: 'mayron.sasuke@gmail.com',
+      
+      attachments: [
+        lista
+      ],
+      subject: 'Nomina de Asistencia Alumnos',
+      body: 'Respaldo de asistencia Alumnos, desde RegistrAPP ',
+      isHtml: true
+    };    
+  
+    this.emailComposer.open(email);
+  }
+  /*
   async registroAsistencia(){
 
     const arrTemp = [];
@@ -140,7 +250,7 @@ export class BaseDatoStorageService {
 
 
   }
-
+  */
 
 
 }

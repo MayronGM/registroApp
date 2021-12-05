@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Asitencias } from 'src/app/interfaces/interfaces';
+import { BaseDatoStorageService } from 'src/app/services/base-dato-storage.service';
 
 
 @Component({
@@ -12,16 +12,21 @@ export class ExploreContainerComponent implements OnInit {
   @Input() nombre: string;
   @Input() email: string;
   @Input() fechaHora: Date;
-  @Input() sede: string;
+  @Input() asignatura: string;
+  @Input() avatar: string;
+  @Input() seccion: string;
 
 
-  constructor() {
+  constructor(private baseDatoStorage: BaseDatoStorageService) {
 
   }
 
   ngOnInit() {}
 
-
+  enviarCorreo(){
+    console.log("enviarCorreo..")
+    this.baseDatoStorage.enviarCorreo();
+  }
 
 
 

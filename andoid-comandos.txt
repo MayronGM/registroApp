@@ -1,0 +1,10 @@
+ionic cap sync
+ionic capacitor add android
+
+
+
+
+
+Comandos para iniciar AndroidStudy
+ionic capacitor copy android
+ionic capacitor build android

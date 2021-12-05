@@ -22,6 +22,7 @@ export class UsuarioService {
   //apiUrl = 'http://localhost:3000';
   apiUrl = 'https://my-json-server.typicode.com/MayronGM/bdasistencia';
   
+  
 
   
 
@@ -54,6 +55,14 @@ export class UsuarioService {
     );
 
   }
+  getDocente():Observable<any>{
+
+    return this.http.get(this.apiUrl + '/docente/').pipe(
+      retry(3)
+    );
+
+  }
+
 
   crearUsuario(users):Observable<any>{
 

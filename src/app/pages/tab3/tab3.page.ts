@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Usuarios, Asitencias } from 'src/app/interfaces/interfaces';
+import { Usuarios, Asitencias, Docentes } from 'src/app/interfaces/interfaces';
 import { Registro } from 'src/app/models/registro.model';
 
 
@@ -12,35 +12,25 @@ import { Registro } from 'src/app/models/registro.model';
 })
 export class Tab3Page {
   private _storage: Storage | null = null;
-  usuario: Usuarios[] = [];
-  reg: Registro[] = [];
-  token: string = null;
+  //usuario: Usuarios[] = [];
+  docente: Docentes[] = [];
+  //reg: Registro[] = [];
+ // token: string = null;
 
-  asistencias: Asitencias = {
-    id: 0 ,
-    nombre: "",
-    email: "",
-    password: "",
-    horario: "",
-    sede: "",
-    telefono: "",
-    seccion: ""
-  }
+  
 
   nombre: string = "";
   email: string = "";
   fechaHora: Date = new Date;
-  sede: string = "";
+  asignatura: string = "";
+  avatar: string = "";
+  seccion: string = "";
 
 
 
   constructor(private storage: Storage) {
     this.init();
     this.registrosNuevos();
-    this.registrosNuevos();
-
-
-
 
   }
 
@@ -53,36 +43,23 @@ export class Tab3Page {
 
   async registrosNuevos(){
 
-    this.reg = (await this.storage.get("registros"));
-    this.usuario = (await this.storage.get("users"));
-    this.token = (await this.storage.get("token"));
+    //this.reg = (await this.storage.get("registros"));
+    //this.usuario = (await this.storage.get("users"));
+    //this.token = (await this.storage.get("token"));
+    this.docente = (await this.storage.get("docentes"));
+    //console.log(this.docente);
 
-    this.usuario.forEach(user => {
+    this.docente.forEach(element => {
+      this.nombre = element.docente;
+      this.email = element.correo;
+      this.asignatura = element.asignatura;
+      this.avatar = element.avatar;
+      this.seccion = element.seccion;
 
-      if (user.email == this.token) {
-
-
-
-        this.asistencias = {
-          id: user.id,
-          nombre: user.nombre,
-          email: user.email,
-          password: user.password,
-          horario: user.horario,
-          sede: user.sede,
-          telefono: user.telefono,
-          seccion: user.seccion
-        }
-
-        this.nombre =  this.asistencias.nombre;
-        this.email =  this.asistencias.email;
-        this.sede = this.asistencias.sede;
-
-      }
-
+      
     });
-
-
+    
+    console.log(this.nombre,this.asignatura,this.seccion,this.email)
 
 
   }
