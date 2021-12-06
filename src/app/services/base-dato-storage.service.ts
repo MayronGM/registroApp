@@ -62,6 +62,30 @@ export class BaseDatoStorageService {
 
   }
 
+  async ressetPasword(email: string){
+    var valido: boolean = false;
+    this.usuarioService.ressetPasword().subscribe( emailUsuario => {
+      var passwordAlumno: string = '';
+      emailUsuario.forEach(element => {
+        if (element.email == email) {
+          console.log(element.email);
+          passwordAlumno = element.password;
+          valido = true;
+          }
+      });
+      if (valido) {
+        
+        this.alertService.presentToast("Email enviado al Correo");
+        this.navController.navigateForward('/login');
+        this.enviarPasswordEmail(passwordAlumno);
+      //console.log(passwordAlumno);
+      } else {
+        this.alertService.presentToast("Email No Encontrado");
+        
+      }
+    });
+  }
+
   async mostrarUsuariosGet(email: string){
 
     this.usuarioService.getUsers().subscribe( respuesta => {
@@ -213,6 +237,20 @@ export class BaseDatoStorageService {
       ],
       subject: 'Nomina de Asistencia Alumnos',
       body: 'Respaldo de asistencia Alumnos, desde RegistrAPP ',
+      isHtml: true
+    };    
+  
+    this.emailComposer.open(email);
+  }
+  enviarPasswordEmail(password: string){
+    const email = {
+      to: 'mayron.sasuke@gmail.com',
+      
+      attachments: [
+        password
+      ],
+      subject: 'Pasword Entregada',
+      body: 'Se Envia Pasword Solicitada '+password+' Desde Base Dato',
       isHtml: true
     };    
   

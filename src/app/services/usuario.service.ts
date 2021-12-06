@@ -48,6 +48,15 @@ export class UsuarioService {
 
   }
 
+  
+  ressetPasword():Observable<any>{
+
+    return this.http.get(this.apiUrl + '/users/').pipe(
+      retry(3)
+    );
+
+  }
+
   getUsers():Observable<any>{
 
     return this.http.get(this.apiUrl + '/users/').pipe(

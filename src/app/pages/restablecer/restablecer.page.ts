@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert.service';
+import { BaseDatoStorageService } from 'src/app/services/base-dato-storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./restablecer.page.scss'],
 })
 export class RestablecerPage implements OnInit {
-
+  
   usuario = {
     email: '',
     password: ''
@@ -19,21 +20,16 @@ export class RestablecerPage implements OnInit {
   constructor(
     private alert: AlertService,
     private usuarioService: UsuarioService,
+    private baseDatoStorageService: BaseDatoStorageService,
     private navController: NavController,) { }
 
   ngOnInit() {
   }
 
   async restablecerPassword(){
-    const valido = true;
-    if ( valido ) {
-      this.alert.loadInicio("Cargando");
-      await this.usuarioService.restablecerPassword( this.usuario.email , this.usuario.password);
-
-      this.navController.navigateRoot( '/login', { animated: true } );
-    } else {
-      this.alert.alertaInformacion('Usuario No Existe');
-    }
+    await this.baseDatoStorageService.ressetPasword(this.usuario.email);
+    this.usuario.email = '';
+   
   }
 
 
