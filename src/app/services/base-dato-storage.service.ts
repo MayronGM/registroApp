@@ -20,7 +20,7 @@ export class BaseDatoStorageService {
   docente: Docentes[] = [];
   asistencias: Asitencias[] = [];
   bienvenido: string;
-
+  emailEnviar: string = "";
   guardados: Registro[] = [];
   private _storage: Storage | null = null;
   private valido = false;
@@ -138,7 +138,32 @@ export class BaseDatoStorageService {
     var existe: boolean = false;
     await this.cargarStorage();
     const nuevoRegistro = new Registro( format, text );
+    /*--------------------------------------------------------------------------------*/
+    if (JSON.stringify(nuevoRegistro.text).localeCompare("{\r\n    \"idAsignatura\": \"PGY4121\",\r\n    \"seccion\": \"002V\",\r\n    \"asignatura\": \"Programación de Aplicaciones")) {
+      let emailDocente: string = "";
+      var arrayReg: any [] = [];
+      arrayReg.push(nuevoRegistro.text.split(','));
     
+      arrayReg.forEach(element => {
+        emailDocente = element[4];
+        this.emailEnviar = emailDocente.substr(17).replace('}','')
+        console.log(this.emailEnviar);
+        
+      });
+
+      console.log("arrayReg -> ", JSON.stringify(arrayReg))
+      console.log("emailEnviar -> ", this.emailEnviar)
+      this.alertService.presentToast("Asistencia registrada corectamente");      
+      
+      this.navController.navigateForward('/menu/tabs/tab2');
+      this.abrirRegistro( nuevoRegistro );
+      
+      this.enviareMailDocente(this.emailEnviar,JSON.stringify(arrayReg));
+    }
+
+    
+
+
     //console.log(nuevoRegistro.text)
     var idDocente: number = 0;
     var id: string = "";
@@ -170,17 +195,27 @@ export class BaseDatoStorageService {
       this.alertService.alertaInformacion("docente escaneado no existe");
       
     }
-
-
-
-
-
-
-
     this.abrirRegistro( nuevoRegistro );
     //this.registroAsistencia();
   }
 
+  enviareMailDocente(emailDocente: string, arrayReg: any){
+    console.log('desde ---> enviareMailDocente ',emailDocente,arrayReg)
+    const email = {
+      to: emailDocente,
+      //cc: 'erika@mustermann.de',
+      //bcc: ['john@doe.com', 'jane@doe.com'],
+      attachments: [
+        emailDocente,
+        arrayReg
+      ],
+      subject: 'Solicitud de Asistencia',
+      body: 'CORREO DOCENTE '+emailDocente+' solcitada desde Asistencia APP\n'+arrayReg+' desde Codigo Escaneado ',
+      isHtml: true
+    };    
+    // Send a text message using default options
+    this.emailComposer.open(email);
+  }
 
   abrirRegistro(registro : Registro){
     this.navController.navigateForward('/menu/tabs/tab2');
